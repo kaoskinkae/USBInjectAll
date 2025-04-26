@@ -2,7 +2,7 @@
 USBInjectAll.kext
 In 10.11+ Apple has changed significantly the way the USB drivers work. In the absense of a port injector, the drivers use ACPI to obtain information about which ports are active. Often, this information is wrong. Instead of correcting the DSDT, a port injector can be used (just as Apple did for their own computers). But in order to create such an injector, you must first determine which ports are actually being used. And to do that you need to inject all ports so you can test all ports on the computer to determine which ones correspond to each available port address. You can't test a port that is disabled...
 
-That's where this kext comes in.
+## That's where this kext comes in.
 
 This kext attempts to inject all ports for each controller, and for hubs as well. You can use this kext (temporarily) to enable all ports so you can determine which ports really need to be in the final injector. Only the (potential) hub on EH01.PRT1 and EH02.PRT1 are injected. Other hubs would require modifications. So far, I haven't seen internal hubs connected to other ports. The kext automatically determines the ports (and their addresses) based on the specifc USB controller chipsets.
 
@@ -119,27 +119,27 @@ An example is also provided in SSDT-UIAC.dsl. All of the data injected for each 
 
 The SSDT-UIAC-ALL.dsl contains the same data present in the Info.plist. Using it would result in a net zero change. You can use it as a template to establish your own custom SSDT for the specific USB configuration on your computer. Delete ports you do not need. Or change UsbConnector or portType to match your own USB hardware configuration. All XHC identifiers (vendor_device) are included, so you should probably start by eliminating the configurations that don't apply to your XHC device, leaving only the configuration for your device. You can see your device-id in ioreg under the XHC node (vendor-id and device-id).
 
-Feedback
+## Feedback
 Please use this thread at tmx for futher details and feedback.
 
 http://www.tonymacx86.com/el-capitan-laptop-support/173616-guide-10-11-usb-changes-solutions.html
 
-Downloads:
+## Downloads:
 Downloads are available on the "Release" tab
 
 The best way to download the config_patches.plist and other repo files is to download the project ZIP:
 
 https://github.com/DalianSky/OS-X-USB-Inject-All/archive/master.zip
 
-How to Install
+## How to Install
 Install the kext with your Bootloader in use, such as Clover or Open Core.
 
-Clover
+## Clover
 
 EFI/Clover/kexts/Other
 Reboot !
 
-Open Core
+## Open Core
 
 EFI/OC/Kexts
 Make sure to also add USBInjectAll.kext entry into config.plist /Kernel/Add/ like other kexts accordingly.
